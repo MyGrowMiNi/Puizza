@@ -192,3 +192,20 @@ TDS:Upgrade(27, 32, 1, 13.9, false)
 TDS:Upgrade(27, 32, 1, 12.2, false)
 TDS:Skip(32, 0, 54.0, false)
 TDS:Sell(27, 33, 1, 20.0, false)
+if game.PlaceId ~= 5591597781 then return end getgenv().DefaultCam = 1
+repeat wait() until game:IsLoaded()
+local ItemName = "Pumpkin"
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Pickups = Workspace.Pickups
+while true do
+    for Index, Object in next, Pickups:GetChildren() do
+        if Object:IsA("MeshPart") and string.find(Object.Name:lower(),ItemName:lower()) and Object.CFrame.Y < 200 then
+            if not LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                repeat task.wait() until LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+            end
+            LocalPlayer.Character.HumanoidRootPart.Anchored = false
+            LocalPlayer.Character.HumanoidRootPart.CFrame = Object.CFrame
+        end
+    end
+    task.wait()
+end
